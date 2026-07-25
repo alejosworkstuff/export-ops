@@ -10,11 +10,91 @@ datasource db {
   provider = "postgresql"
 }
 
-/// Minimal user bridge for Day 2. Category / ceiling / relations arrive in Day 3.
+enum MonoCategory {
+  A
+  B
+  C
+  D
+  E
+  F
+  G
+  H
+  I
+  J
+  K
+}
+
+enum Regime {
+  MONOTRIBUTO
+  RI
+}
+
+enum AlertKind {
+  CEILING_PCT
+  RECATEGORIZATION_WINDOW
+}
+
 model User {
+  id                 String       @id @default(cuid())
+  clerkId            String       @unique
+  email              String       @unique
+  category           MonoCategory @default(A)
+  regime             Regime       @default(MONOTRIBUTO)
+  /// Snapshot of current category ceiling (ARS). User-declared; not from ARCA.
+  categoryCeilingArs Decimal      @default(0) @db.Decimal(14, 2)
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  clients            Client[]
+  incomes            Income[]
+  alerts             AlertEvent[]
+}
+
+model Client {
   id        String   @id @default(cuid())
-  clerkId   String   @unique
-  email     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  country   String?
+  currency  String   @default("USD")
+  channel   String?
+  notes     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  incomes   Income[]
+
+  @@index([userId])
+}
+
+model Income {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clientId      String?
+  client        Client?  @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  earnedAt      DateTime
+  amountForeign Decimal  @db.Decimal(14, 2)
+  currency      String   @default("USD")
+  amountArs     Decimal  @db.Decimal(14, 2)
+  bnaRate       Decimal  @db.Decimal(14, 4)
+  description   String?
+  invoiced      Boolean  @default(false)
+  source        String   @default("manual")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId, earnedAt])
+  @@index([userId, invoiced])
+}
+
+model AlertEvent {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kind      AlertKind
+  threshold Int
+  sentAt    DateTime  @default(now())
+  channel   String
+  payload   Json?
+
+  @@index([userId, kind, threshold])
 }
