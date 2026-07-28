@@ -1,12 +1,11 @@
 "use server";
 
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { Prisma } from "@/generated/prisma/client";
 import { getBnaVendedorRate, toArDateKey, type BnaCurrency } from "@/lib/bna";
 import { prisma } from "@/lib/db";
-import { ensureLocalUser } from "@/lib/ensure-local-user";
+import { requireLocalUser } from "@/lib/require-local-user";
 
 const incomeFieldsSchema = z.object({
   amountForeign: z.coerce.number().positive("El monto debe ser positivo"),
@@ -50,25 +49,6 @@ function earnedAtFromDateKey(dateKey: string): Date {
 function revalidateIncomePaths() {
   revalidatePath("/app");
   revalidatePath("/app/ingresos");
-}
-
-async function requireLocalUser(): Promise<
-  | { ok: true; user: { id: string } }
-  | { ok: false; error: string }
-> {
-  const { userId: clerkId } = await auth();
-  if (!clerkId) {
-    return { ok: false, error: "No autenticado" };
-  }
-
-  const clerkUser = await currentUser();
-  const email = clerkUser?.emailAddresses[0]?.emailAddress;
-  if (!email) {
-    return { ok: false, error: "Usuario sin email" };
-  }
-
-  const user = await ensureLocalUser(clerkId, email);
-  return { ok: true, user };
 }
 
 async function assertClientOwned(
