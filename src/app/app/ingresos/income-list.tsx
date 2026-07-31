@@ -8,6 +8,7 @@ import { arsFmt, foreignFmt } from "./ui";
 type IncomeListProps = {
   data: IncomeListPage;
   clients: ClientOption[];
+  filterClientId?: string | null;
 };
 
 function toRowView(row: IncomeListPage["rows"][number]): IncomeRowView {
@@ -25,24 +26,37 @@ function toRowView(row: IncomeListPage["rows"][number]): IncomeRowView {
   };
 }
 
-export function IncomeList({ data, clients }: IncomeListProps) {
+function pageHref(page: number, filterClientId?: string | null): string {
+  const params = new URLSearchParams();
+  params.set("page", String(page));
+  if (filterClientId) params.set("clientId", filterClientId);
+  return `/app/ingresos?${params.toString()}`;
+}
+
+export function IncomeList({
+  data,
+  clients,
+  filterClientId,
+}: IncomeListProps) {
   const { rows, page, totalPages, totalCount, totalArs } = data;
 
   return (
-    <section className="space-y-4">
+    <section className="eo-panel space-y-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="text-lg font-medium text-zinc-900">Historial</h2>
-          <p className="mt-1 text-sm text-zinc-600">
+          <h2 className="eo-panel-title">Historial</h2>
+          <p className="eo-panel-desc">
             {totalCount === 0
-              ? "Todavía no hay ingresos cargados."
+              ? filterClientId
+                ? "No hay ingresos para este cliente."
+                : "Todavía no hay ingresos cargados."
               : `${totalCount} ingreso${totalCount === 1 ? "" : "s"}`}
           </p>
         </div>
         {totalCount > 0 ? (
-          <p className="text-sm text-zinc-700">
-            Total ledger:{" "}
-            <span className="font-semibold tabular-nums text-zinc-900">
+          <p className="text-sm text-[var(--eo-muted)]">
+            {filterClientId ? "Total filtrado: " : "Total ledger: "}
+            <span className="eo-stat text-base">
               {arsFmt.format(Number(totalArs.toString()))}
             </span>
           </p>
@@ -50,31 +64,48 @@ export function IncomeList({ data, clients }: IncomeListProps) {
       </div>
 
       {rows.length === 0 ? (
-        <div className="rounded-md border border-dashed border-zinc-300 bg-zinc-50 px-4 py-12 text-center">
-          <p className="text-sm font-medium text-zinc-800">Ledger vacío</p>
-          <p className="mx-auto mt-1 max-w-sm text-sm text-zinc-600">
-            Cuando cobres en USD/EUR, cargá el ingreso arriba. Acá vas a ver el
-            historial, el total en ARS y qué falta facturar.
+        <div className="rounded-[var(--eo-radius-sm)] border border-dashed border-[var(--eo-line)] bg-white/50 px-4 py-12 text-center">
+          <p className="text-sm font-semibold text-[var(--eo-ink)]">
+            {filterClientId ? "Sin resultados" : "Ledger vacío"}
+          </p>
+          <p className="mx-auto mt-1 max-w-sm text-sm text-[var(--eo-muted)]">
+            {filterClientId
+              ? "Probá otro cliente o cargá un ingreso vinculado."
+              : "Cuando cobres en USD/EUR, cargá el ingreso arriba. Acá vas a ver el historial, el total en ARS y qué falta facturar."}
           </p>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-md border border-zinc-200">
+        <div className="overflow-x-auto rounded-[var(--eo-radius-sm)] border border-[var(--eo-line)] bg-white/60">
           <table className="min-w-full text-left text-sm">
-            <thead className="border-b border-zinc-200 bg-zinc-50 text-xs uppercase tracking-wide text-zinc-500">
+            <thead className="border-b border-[var(--eo-line)] bg-[rgba(12,18,34,0.03)] text-[var(--eo-muted)]">
               <tr>
-                <th className="px-3 py-2 font-medium">Fecha</th>
-                <th className="px-3 py-2 font-medium">Monto</th>
-                <th className="px-3 py-2 font-medium">ARS</th>
-                <th className="px-3 py-2 font-medium">BNA</th>
-                <th className="px-3 py-2 font-medium">Cliente</th>
-                <th className="px-3 py-2 font-medium">Descripción</th>
-                <th className="px-3 py-2 font-medium">Factura</th>
-                <th className="px-3 py-2 font-medium">
+                <th className="eo-meta px-3 py-2.5 font-medium normal-case tracking-[0.06em]">
+                  Fecha
+                </th>
+                <th className="eo-meta px-3 py-2.5 font-medium normal-case tracking-[0.06em]">
+                  Monto
+                </th>
+                <th className="eo-meta px-3 py-2.5 font-medium normal-case tracking-[0.06em]">
+                  ARS
+                </th>
+                <th className="eo-meta px-3 py-2.5 font-medium normal-case tracking-[0.06em]">
+                  BNA
+                </th>
+                <th className="eo-meta px-3 py-2.5 font-medium normal-case tracking-[0.06em]">
+                  Cliente
+                </th>
+                <th className="eo-meta px-3 py-2.5 font-medium normal-case tracking-[0.06em]">
+                  Descripción
+                </th>
+                <th className="eo-meta px-3 py-2.5 font-medium normal-case tracking-[0.06em]">
+                  Factura
+                </th>
+                <th className="px-3 py-2.5 font-medium">
                   <span className="sr-only">Acciones</span>
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-100">
+            <tbody className="divide-y divide-[var(--eo-line)]">
               {rows.map((row) => {
                 const view = toRowView(row);
                 return (
@@ -99,31 +130,31 @@ export function IncomeList({ data, clients }: IncomeListProps) {
           className="flex items-center justify-between gap-3 text-sm"
           aria-label="Paginación de ingresos"
         >
-          <p className="text-zinc-600">
+          <p className="text-[var(--eo-muted)]">
             Página {page} de {totalPages}
           </p>
           <div className="flex gap-2">
             {page > 1 ? (
               <Link
-                href={`/app/ingresos?page=${page - 1}`}
-                className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-zinc-800 hover:bg-zinc-50"
+                href={pageHref(page - 1, filterClientId)}
+                className="eo-btn-ghost !px-3 !py-1.5"
               >
                 Anterior
               </Link>
             ) : (
-              <span className="rounded-md border border-zinc-200 px-3 py-1.5 text-zinc-400">
+              <span className="rounded-full border border-[var(--eo-line)] px-3 py-1.5 text-[var(--eo-muted)] opacity-50">
                 Anterior
               </span>
             )}
             {page < totalPages ? (
               <Link
-                href={`/app/ingresos?page=${page + 1}`}
-                className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-zinc-800 hover:bg-zinc-50"
+                href={pageHref(page + 1, filterClientId)}
+                className="eo-btn-ghost !px-3 !py-1.5"
               >
                 Siguiente
               </Link>
             ) : (
-              <span className="rounded-md border border-zinc-200 px-3 py-1.5 text-zinc-400">
+              <span className="rounded-full border border-[var(--eo-line)] px-3 py-1.5 text-[var(--eo-muted)] opacity-50">
                 Siguiente
               </span>
             )}

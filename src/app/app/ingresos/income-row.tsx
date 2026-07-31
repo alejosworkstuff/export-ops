@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   useActionState,
   useEffect,
@@ -269,7 +270,7 @@ export function IncomeRow({
               <button
                 type="submit"
                 disabled={isUpdating}
-                className="rounded-md bg-zinc-900 px-3 py-1.5 text-sm font-medium text-white disabled:opacity-50"
+                className="rounded-full bg-[var(--eo-ink)] px-3 py-1.5 text-sm font-medium text-white disabled:opacity-50"
               >
                 {isUpdating ? "Guardando…" : "Guardar cambios"}
               </button>
@@ -277,7 +278,7 @@ export function IncomeRow({
                 type="button"
                 onClick={() => setEditing(false)}
                 disabled={isUpdating}
-                className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm text-zinc-800 hover:bg-zinc-100"
+                className="eo-btn-ghost !rounded-full !px-3 !py-1.5 text-sm"
               >
                 Cancelar
               </button>
@@ -312,7 +313,16 @@ export function IncomeRow({
         {Number(row.bnaRate).toFixed(4)}
       </td>
       <td className="max-w-[10rem] truncate px-3 py-2">
-        {row.clientName ?? "—"}
+        {row.clientId && row.clientName ? (
+          <Link
+            href={`/app/clientes/${row.clientId}`}
+            className="underline-offset-2 hover:underline"
+          >
+            {row.clientName}
+          </Link>
+        ) : (
+          "—"
+        )}
       </td>
       <td className="max-w-[14rem] truncate px-3 py-2 text-zinc-600">
         {row.description ?? "—"}

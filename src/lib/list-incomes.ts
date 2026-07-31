@@ -31,15 +31,24 @@ function clampPage(page: number, totalPages: number): number {
   return Math.min(Math.max(page, 1), totalPages);
 }
 
+export type ListIncomesOptions = {
+  /** When set, only incomes for this client (must already be owned by user). */
+  clientId?: string | null;
+};
+
 /**
  * Paginated income ledger for a user, newest first.
- * `totalArs` is the full ledger sum (page-independent).
+ * `totalArs` is the filtered ledger sum (page-independent).
  */
 export async function listIncomesPage(
   userId: string,
   pageRaw: number,
+  options: ListIncomesOptions = {},
 ): Promise<IncomeListPage> {
-  const where = { userId };
+  const where: { userId: string; clientId?: string } = { userId };
+  if (options.clientId) {
+    where.clientId = options.clientId;
+  }
 
   const [totalCount, aggregate] = await Promise.all([
     prisma.income.count({ where }),

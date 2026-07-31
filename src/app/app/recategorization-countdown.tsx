@@ -16,34 +16,25 @@ export function RecategorizationCountdownSection({
   const { label, daysRemaining } = countdown;
 
   return (
-    <section
-      className="space-y-4 border-t border-zinc-200 pt-6"
-      aria-labelledby="recat-heading"
-    >
+    <section className="eo-panel space-y-5" aria-labelledby="recat-heading">
       <div>
-        <h2 id="recat-heading" className="text-lg font-medium text-zinc-900">
+        <h2 id="recat-heading" className="eo-panel-title">
           Próxima recategorización
         </h2>
-        <p className="mt-1 text-sm text-zinc-600">
+        <p className="eo-panel-desc">
           Ventanas Monotributo: 1 de enero y 1 de julio (calendario AR).
         </p>
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <div className="space-y-1">
-          <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
-            Fecha
-          </p>
-          <p className="text-xl font-semibold capitalize text-zinc-900">
-            {label}
-          </p>
+        <div className="space-y-1 rounded-xl bg-[var(--eo-accent-soft)] px-4 py-3">
+          <p className="eo-meta">Fecha</p>
+          <p className="eo-stat text-xl capitalize sm:text-2xl">{label}</p>
         </div>
-        <div className="space-y-1">
-          <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
-            Faltan
-          </p>
+        <div className="space-y-1 rounded-xl bg-[rgba(12,18,34,0.04)] px-4 py-3">
+          <p className="eo-meta">Faltan</p>
           <p
-            className="text-3xl font-semibold tabular-nums tracking-tight text-zinc-900"
+            className="eo-stat text-3xl text-[var(--eo-accent-deep)] sm:text-4xl"
             aria-label={`${daysLabel(daysRemaining)} hasta ${label}`}
           >
             {daysLabel(daysRemaining)}

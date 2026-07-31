@@ -54,10 +54,10 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
   const rateError = fieldError(state, "manualBnaRate");
 
   return (
-    <section className="space-y-4">
+    <section className="eo-panel space-y-5">
       <div>
-        <h2 className="text-lg font-medium text-zinc-900">Cargar ingreso</h2>
-        <p className="mt-1 text-sm text-zinc-600">
+        <h2 className="eo-panel-title">Cargar ingreso</h2>
+        <p className="eo-panel-desc">
           Monto en moneda extranjera → ARS al BNA vendedor del día.
         </p>
       </div>
@@ -71,7 +71,7 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
         <div className="space-y-1.5 sm:col-span-1">
           <label
             htmlFor="amountForeign"
-            className="block text-sm font-medium text-zinc-800"
+            className="eo-label"
           >
             Monto
           </label>
@@ -99,7 +99,7 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
         <div className="space-y-1.5 sm:col-span-1">
           <label
             htmlFor="currency"
-            className="block text-sm font-medium text-zinc-800"
+            className="eo-label"
           >
             Moneda
           </label>
@@ -125,7 +125,7 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
         <div className="space-y-1.5 sm:col-span-1">
           <label
             htmlFor="earnedAt"
-            className="block text-sm font-medium text-zinc-800"
+            className="eo-label"
           >
             Fecha
           </label>
@@ -150,7 +150,7 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
         <div className="space-y-1.5 sm:col-span-1">
           <label
             htmlFor="clientId"
-            className="block text-sm font-medium text-zinc-800"
+            className="eo-label"
           >
             Cliente <span className="font-normal text-zinc-500">(opcional)</span>
           </label>
@@ -176,7 +176,14 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
           ) : null}
           {clients.length === 0 ? (
             <p className="text-xs text-zinc-500">
-              Todavía no hay clientes — podés cargar el ingreso igual.
+              Todavía no hay clientes —{" "}
+              <a
+                href="/app/clientes"
+                className="underline underline-offset-2 hover:text-zinc-700"
+              >
+                creá uno
+              </a>{" "}
+              o cargá el ingreso igual.
             </p>
           ) : null}
         </div>
@@ -184,7 +191,7 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
         <div className="space-y-1.5 sm:col-span-2">
           <label
             htmlFor="description"
-            className="block text-sm font-medium text-zinc-800"
+            className="eo-label"
           >
             Descripción{" "}
             <span className="font-normal text-zinc-500">(opcional)</span>
@@ -209,7 +216,7 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
         <div className="space-y-1.5 sm:col-span-2">
           <label
             htmlFor="manualBnaRate"
-            className="block text-sm font-medium text-zinc-800"
+            className="eo-label"
           >
             BNA vendedor manual{" "}
             <span className="font-normal text-zinc-500">
@@ -239,7 +246,7 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
           <button
             type="submit"
             disabled={pending}
-            className="inline-flex items-center justify-center rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+            className="eo-btn disabled:cursor-not-allowed"
           >
             {pending ? "Guardando…" : "Guardar ingreso"}
           </button>

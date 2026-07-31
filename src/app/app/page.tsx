@@ -52,21 +52,29 @@ export default async function DashboardPage() {
   const countdown = nextRecategorization();
 
   return (
-    <div className="space-y-8">
-      <div className="space-y-2">
-        <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
+    <div className="space-y-6">
+      <div className="eo-reveal space-y-2">
+        <h1 className="eo-font-display text-3xl font-bold tracking-tight text-[var(--eo-ink)] sm:text-4xl">
           Dashboard
         </h1>
-        <p className="text-sm text-zinc-600">
+        <p className="max-w-2xl text-sm leading-relaxed text-[var(--eo-muted)]">
           Tope declarado, runway 12 meses, countdown a recategorización y
           gráfico mensual.
         </p>
       </div>
 
-      <CategorySettingsForm defaults={defaults} />
-      <RunwayCard category={category} runway={runway} />
-      <RecategorizationCountdownSection countdown={countdown} />
-      <MonthlyChart points={monthlyPoints} />
+      <div className="eo-reveal eo-reveal-delay-1">
+        <CategorySettingsForm defaults={defaults} />
+      </div>
+      <div className="eo-reveal eo-reveal-delay-2">
+        <RunwayCard category={category} runway={runway} />
+      </div>
+      <div className="eo-reveal eo-reveal-delay-3">
+        <RecategorizationCountdownSection countdown={countdown} />
+      </div>
+      <div className="eo-reveal eo-reveal-delay-4">
+        <MonthlyChart points={monthlyPoints} />
+      </div>
     </div>
   );
 }

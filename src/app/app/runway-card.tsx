@@ -9,9 +9,9 @@ type RunwayCardProps = {
 };
 
 function pctTone(pct: number): string {
-  if (pct >= 95) return "text-red-700";
-  if (pct >= 80) return "text-amber-700";
-  return "text-zinc-900";
+  if (pct >= 95) return "text-[var(--eo-danger)]";
+  if (pct >= 80) return "text-[var(--eo-warn)]";
+  return "text-[var(--eo-ink)]";
 }
 
 export function RunwayCard({ category, runway }: RunwayCardProps) {
@@ -19,26 +19,20 @@ export function RunwayCard({ category, runway }: RunwayCardProps) {
   const hasCeiling = pctOfCeiling !== null;
 
   return (
-    <section
-      className="space-y-4 border-t border-zinc-200 pt-6"
-      aria-labelledby="runway-heading"
-    >
+    <section className="eo-panel space-y-5" aria-labelledby="runway-heading">
       <div>
-        <h2
-          id="runway-heading"
-          className="text-lg font-medium text-zinc-900"
-        >
+        <h2 id="runway-heading" className="eo-panel-title">
           Runway 12 meses
         </h2>
-        <p className="mt-1 text-sm text-zinc-600">
+        <p className="eo-panel-desc">
           Acumulado rolling vs tope declarado (categoría {category}).
         </p>
       </div>
 
       {!hasCeiling ? (
-        <p className="text-sm text-zinc-600" role="status">
+        <p className="text-sm text-[var(--eo-muted)]" role="status">
           Declará un tope arriba para ver el % de categoría. Acumulado actual:{" "}
-          <span className="font-medium text-zinc-900">
+          <span className="eo-stat text-base">
             {arsFmt.format(Number(accumulatedArs))}
           </span>
           .
@@ -46,27 +40,21 @@ export function RunwayCard({ category, runway }: RunwayCardProps) {
       ) : (
         <div className="grid gap-6 sm:grid-cols-3">
           <div className="space-y-1">
-            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
-              Acumulado 12m
-            </p>
-            <p className="text-xl font-semibold tabular-nums text-zinc-900">
+            <p className="eo-meta">Acumulado 12m</p>
+            <p className="eo-stat text-xl sm:text-2xl">
               {arsFmt.format(Number(accumulatedArs))}
             </p>
           </div>
           <div className="space-y-1">
-            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
-              Tope (cat. {category})
-            </p>
-            <p className="text-xl font-semibold tabular-nums text-zinc-900">
+            <p className="eo-meta">Tope (cat. {category})</p>
+            <p className="eo-stat text-xl sm:text-2xl">
               {arsFmt.format(Number(ceilingArs))}
             </p>
           </div>
           <div className="space-y-1">
-            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
-              % de categoría
-            </p>
+            <p className="eo-meta">% de categoría</p>
             <p
-              className={`text-3xl font-semibold tabular-nums tracking-tight ${pctTone(pctOfCeiling)}`}
+              className={`eo-stat text-3xl sm:text-4xl ${pctTone(pctOfCeiling)}`}
             >
               {pctOfCeiling.toLocaleString("es-AR", {
                 maximumFractionDigits: 1,

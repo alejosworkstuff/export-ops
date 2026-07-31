@@ -11,33 +11,30 @@ export function MonthlyChart({ points }: MonthlyChartProps) {
 
   return (
     <section
-      className="space-y-4 border-t border-zinc-200 pt-6"
+      className="eo-panel space-y-5"
       aria-labelledby="monthly-chart-heading"
     >
       <div>
-        <h2
-          id="monthly-chart-heading"
-          className="text-lg font-medium text-zinc-900"
-        >
+        <h2 id="monthly-chart-heading" className="eo-panel-title">
           Ingresos por mes
         </h2>
-        <p className="mt-1 text-sm text-zinc-600">
-          Últimos 12 meses (ARS @ BNA). Sin librería de charts — barras CSS.
+        <p className="eo-panel-desc">
+          Últimos 12 meses (ARS @ BNA). Barras CSS — sin librería de charts.
         </p>
       </div>
 
       {!hasAny ? (
-        <p className="text-sm text-zinc-600" role="status">
+        <p className="text-sm text-[var(--eo-muted)]" role="status">
           Todavía no hay ingresos en la ventana de 12 meses.
         </p>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-3">
           <div
-            className="flex h-40 items-end gap-1.5 sm:gap-2"
+            className="flex h-44 items-end gap-1.5 sm:gap-2"
             role="img"
             aria-label="Barras de ingresos mensuales en ARS"
           >
-            {points.map((p) => {
+            {points.map((p, i) => {
               const pct = max > 0 ? (p.amountArs / max) * 100 : 0;
               const height = p.amountArs > 0 ? Math.max(pct, 4) : 0;
               return (
@@ -46,8 +43,11 @@ export function MonthlyChart({ points }: MonthlyChartProps) {
                   className="flex min-w-0 flex-1 flex-col items-center justify-end gap-1"
                 >
                   <div
-                    className="w-full rounded-t-sm bg-zinc-800"
-                    style={{ height: `${height}%` }}
+                    className="eo-chart-bar"
+                    style={{
+                      height: `${height}%`,
+                      animationDelay: `${i * 40}ms`,
+                    }}
                     title={`${p.label}: ${arsFmt.format(p.amountArs)}`}
                   />
                 </div>
@@ -60,15 +60,15 @@ export function MonthlyChart({ points }: MonthlyChartProps) {
                 key={`${p.monthKey}-label`}
                 className="min-w-0 flex-1 text-center"
               >
-                <span className="block truncate text-[10px] capitalize leading-tight text-zinc-500 sm:text-xs">
+                <span className="block truncate text-[10px] capitalize leading-tight text-[var(--eo-muted)] sm:text-xs">
                   {p.label.replace(".", "")}
                 </span>
               </div>
             ))}
           </div>
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-[var(--eo-muted)]">
             Máximo del período:{" "}
-            <span className="font-medium text-zinc-700">
+            <span className="eo-stat text-sm">
               {arsFmt.format(max)}
             </span>
           </p>

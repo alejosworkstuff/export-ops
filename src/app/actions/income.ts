@@ -46,9 +46,13 @@ function earnedAtFromDateKey(dateKey: string): Date {
   return new Date(`${dateKey}T15:00:00.000Z`);
 }
 
-function revalidateIncomePaths() {
+function revalidateIncomePaths(clientId?: string | null) {
   revalidatePath("/app");
   revalidatePath("/app/ingresos");
+  revalidatePath("/app/clientes");
+  if (clientId) {
+    revalidatePath(`/app/clientes/${clientId}`);
+  }
 }
 
 async function assertClientOwned(
@@ -157,7 +161,7 @@ export async function createIncome(
     },
   });
 
-  revalidateIncomePaths();
+  revalidateIncomePaths(data.clientId);
 
   return {
     ok: true,
@@ -189,7 +193,7 @@ export async function updateIncome(
 
   const existing = await prisma.income.findFirst({
     where: { id: data.id, userId: user.id },
-    select: { id: true },
+    select: { id: true, clientId: true },
   });
   if (!existing) {
     return { ok: false, error: "Ingreso no encontrado" };
@@ -227,7 +231,10 @@ export async function updateIncome(
     },
   });
 
-  revalidateIncomePaths();
+  revalidateIncomePaths(data.clientId);
+  if (existing.clientId && existing.clientId !== data.clientId) {
+    revalidatePath(`/app/clientes/${existing.clientId}`);
+  }
 
   return {
     ok: true,

@@ -52,23 +52,18 @@ export function CategorySettingsForm({ defaults }: CategorySettingsFormProps) {
       : defaults.categoryCeilingArs;
 
   return (
-    <section className="space-y-4">
+    <section className="eo-panel space-y-5">
       <div>
-        <h2 className="text-lg font-medium text-zinc-900">
-          Categoría y tope
-        </h2>
-        <p className="mt-1 text-sm text-zinc-600">
-          Declarás tu categoría Monotributo y el tope anual en ARS. No consultamos
-          ARCA — es un snapshot tuyo para calcular runway.
+        <h2 className="eo-panel-title">Categoría y tope</h2>
+        <p className="eo-panel-desc">
+          Declarás tu categoría Monotributo y el tope anual en ARS. No
+          consultamos ARCA — es un snapshot tuyo para calcular runway.
         </p>
       </div>
 
       <form action={formAction} className="max-w-md space-y-4">
         <div className="space-y-1.5">
-          <label
-            htmlFor="category"
-            className="block text-sm font-medium text-zinc-800"
-          >
+          <label htmlFor="category" className="eo-label">
             Categoría
           </label>
           <select
@@ -89,17 +84,14 @@ export function CategorySettingsForm({ defaults }: CategorySettingsFormProps) {
             ))}
           </select>
           {categoryError ? (
-            <p id="category-error" className="text-sm text-red-600">
+            <p id="category-error" className="text-sm text-[var(--eo-danger)]">
               {categoryError}
             </p>
           ) : null}
         </div>
 
         <div className="space-y-1.5">
-          <label
-            htmlFor="categoryCeilingArs"
-            className="block text-sm font-medium text-zinc-800"
-          >
+          <label htmlFor="categoryCeilingArs" className="eo-label">
             Tope categoría (ARS)
           </label>
           <input
@@ -121,27 +113,23 @@ export function CategorySettingsForm({ defaults }: CategorySettingsFormProps) {
             }
           />
           {ceilingError ? (
-            <p id="ceiling-error" className="text-sm text-red-600">
+            <p id="ceiling-error" className="text-sm text-[var(--eo-danger)]">
               {ceilingError}
             </p>
           ) : (
-            <p id="ceiling-hint" className="text-xs text-zinc-500">
-              Usá el tope vigente de tu categoría. Cuando AFIP actualice escalas,
-              editá este número.
+            <p id="ceiling-hint" className="text-xs text-[var(--eo-muted)]">
+              Usá el tope vigente de tu categoría. Cuando AFIP actualice
+              escalas, editá este número.
             </p>
           )}
         </div>
 
-        <button
-          type="submit"
-          disabled={pending}
-          className="rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
-        >
+        <button type="submit" disabled={pending} className="eo-btn">
           {pending ? "Guardando…" : "Guardar"}
         </button>
 
         {state?.ok === false ? (
-          <p className="text-sm text-red-600" role="alert">
+          <p className="text-sm text-[var(--eo-danger)]" role="alert">
             {state.error}
           </p>
         ) : null}
@@ -149,7 +137,7 @@ export function CategorySettingsForm({ defaults }: CategorySettingsFormProps) {
           <p
             ref={successRef}
             tabIndex={-1}
-            className="text-sm text-emerald-700 outline-none"
+            className="text-sm text-[var(--eo-ok)] outline-none"
             role="status"
           >
             Guardado: categoría {state.category}, tope{" "}
