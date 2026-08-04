@@ -10,7 +10,7 @@ Registrá cobros en dólares, convertí al oficial BNA y mirá tu acumulado de 1
 
 ## Qué es
 
-Cockpit mínimo para freelancers y contractors argentinos que exportan servicios y cobran afuera (Wise, Payoneer, Deel):
+Cockpit mínimo para freelancers y contractors argentinos que exportan servicios y cobran afuera (Wise, Payoneer, Deel o tarjetar locales):
 
 | Pieza | Qué hace |
 | --- | --- |
@@ -21,7 +21,7 @@ Cockpit mínimo para freelancers y contractors argentinos que exportan servicios
 
 Una sola cosa: **runway fiscal visible**. No es un facturador.
 
-## Qué NO es (anti-scope, v1)
+## Qué NO es
 
 - ❌ No emite Factura E ni CAE. Cero ARCA/webservices.
 - ❌ No asesora liquidación de divisas (BCRA/PSP).
@@ -98,12 +98,8 @@ curl https://export-ops-jade.vercel.app/api/health
 | `npm run dev` | Dev server |
 | `npm run build` | `prisma generate` + Next build |
 | `npm run db:seed` | Seed demo |
-| `npx tsx scripts/qa-day7-alerts.ts` | QA helpers de alertas (Day 7) |
-
-## Status
-
-**MVP ship gate (Day 8 / week 4).** Scope congelado: no se amplía v1 hacia ARCA, facturación o marketplace. Señal = demo live + este README + post LinkedIn; sin tracción → freeze y vuelta a deepen de repos existentes.
+| `npx tsx scripts/qa-day7-alerts.ts` | QA helpers de alertas |
 
 ## Licencia / contexto
 
-Proyecto de portafolio (roadmap hire-first). Código personal; no es consejo fiscal ni producto comercial.
+Proyecto de portafolio. Código personal; no es consejo fiscal ni producto comercial.
