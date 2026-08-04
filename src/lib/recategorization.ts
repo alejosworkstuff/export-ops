@@ -39,7 +39,7 @@ function daysBetweenKeys(fromKey: string, toKey: string): number {
 
 /**
  * Next Monotributo recategorization checkpoint: 1 Jan or 1 Jul (AR calendar).
- * Pure — no DB. Alert banners for the window are Day 7.
+ * Pure — no DB. AlertEvent for the window: lib/alerts (Day 7).
  */
 export function nextRecategorization(now = new Date()): RecategorizationCountdown {
   const todayKey = toArDateKey(now);

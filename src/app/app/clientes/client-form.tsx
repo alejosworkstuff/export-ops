@@ -2,8 +2,6 @@
 
 import { useActionState, useEffect, useRef, useState } from "react";
 import {
-  CHANNELS,
-  CURRENCIES,
   createClientFormAction,
   type ClientMutationResult,
 } from "@/app/actions/client";
@@ -11,6 +9,7 @@ import {
   fieldBorder,
   fieldClass,
 } from "@/app/app/ingresos/ui";
+import { CHANNELS, CURRENCIES } from "@/lib/client-options";
 
 function fieldError(
   state: ClientMutationResult | null,

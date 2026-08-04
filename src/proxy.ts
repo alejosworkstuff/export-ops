@@ -1,10 +1,21 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
 const isProtectedRoute = createRouteMatcher(["/app(.*)"]);
+const isPublicApi = createRouteMatcher(["/api/health"]);
 
 export default clerkMiddleware(async (auth, req) => {
+  if (isPublicApi(req)) {
+    return NextResponse.next();
+  }
+
   if (isProtectedRoute(req)) {
-    await auth.protect();
+    // Explicit redirect avoids Clerk protect-rewrite → 404 on Vercel + pk_test
+    // when the request has no clerk browser cookie (curl/health probes).
+    const { userId, redirectToSignIn } = await auth();
+    if (!userId) {
+      return redirectToSignIn({ returnBackUrl: req.url });
+    }
   }
 });
 

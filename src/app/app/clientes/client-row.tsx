@@ -8,14 +8,13 @@ import {
   useTransition,
 } from "react";
 import {
-  CHANNELS,
-  CURRENCIES,
   deleteClient,
   updateClientFormAction,
   type ClientMutationResult,
   type DeleteClientResult,
 } from "@/app/actions/client";
 import { fieldBorder, fieldClassCompact } from "@/app/app/ingresos/ui";
+import { CHANNELS, CURRENCIES } from "@/lib/client-options";
 
 export type ClientRowView = {
   id: string;

@@ -3,13 +3,12 @@
 import { useActionState, useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
-  CHANNELS,
-  CURRENCIES,
   deleteClient,
   updateClientFormAction,
   type ClientMutationResult,
 } from "@/app/actions/client";
 import { fieldBorder, fieldClass } from "@/app/app/ingresos/ui";
+import { CHANNELS, CURRENCIES } from "@/lib/client-options";
 
 type Props = {
   client: {

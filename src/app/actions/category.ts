@@ -3,6 +3,10 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { MonoCategory, Prisma } from "@/generated/prisma/client";
+import {
+  evaluateAndPersistAlerts,
+  resetCeilingAlerts,
+} from "@/lib/alerts";
 import { prisma } from "@/lib/db";
 import { requireLocalUser } from "@/lib/require-local-user";
 
@@ -63,6 +67,9 @@ export async function updateCategorySettings(
     },
   });
 
+  // New tope baseline → allow 80/95 to fire again against it.
+  await resetCeilingAlerts(authResult.user.id);
+  await evaluateAndPersistAlerts(authResult.user.id);
   revalidatePath("/app");
 
   return {

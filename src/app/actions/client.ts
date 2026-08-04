@@ -2,11 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { CHANNELS, CURRENCIES } from "@/lib/client-options";
 import { prisma } from "@/lib/db";
 import { requireLocalUser } from "@/lib/require-local-user";
-
-export const CHANNELS = ["Wise", "Payoneer", "Deel", "bank", "other"] as const;
-export const CURRENCIES = ["USD", "EUR", "ARS"] as const;
 
 const emptyToNull = (v: string | null | undefined) => {
   if (v == null) return null;

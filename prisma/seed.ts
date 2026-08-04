@@ -122,13 +122,73 @@ async function main() {
     });
   }
 
+  // Lower tope so demo seed sits ~82% → CEILING_PCT 80 is active for banner QA.
   const rollup = await prisma.income.aggregate({
     where: {
       userId: user.id,
-      earnedAt: { gte: new Date(Date.UTC(new Date().getUTCFullYear() - 1, new Date().getUTCMonth(), new Date().getUTCDate())) },
+      earnedAt: {
+        gte: new Date(
+          Date.UTC(
+            new Date().getUTCFullYear() - 1,
+            new Date().getUTCMonth(),
+            new Date().getUTCDate(),
+          ),
+        ),
+      },
     },
     _sum: { amountArs: true },
   });
+
+  const rolling = Number(rollup._sum.amountArs ?? 0);
+  const demoCeiling =
+    rolling > 0
+      ? new Prisma.Decimal((rolling / 0.82).toFixed(2))
+      : new Prisma.Decimal(11_379_236.74);
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { categoryCeilingArs: demoCeiling },
+  });
+
+  const pct =
+    Number(demoCeiling) > 0
+      ? Math.round((rolling / Number(demoCeiling)) * 1000) / 10
+      : 0;
+
+  if (pct >= 80) {
+    await prisma.alertEvent.create({
+      data: {
+        userId: user.id,
+        kind: "CEILING_PCT",
+        threshold: 80,
+        channel: "in_app",
+        payload: {
+          pctOfCeiling: pct,
+          accumulatedArs: rolling.toFixed(2),
+          ceilingArs: demoCeiling.toFixed(2),
+          category: "C",
+          source: "seed",
+        },
+      },
+    });
+  }
+  if (pct >= 95) {
+    await prisma.alertEvent.create({
+      data: {
+        userId: user.id,
+        kind: "CEILING_PCT",
+        threshold: 95,
+        channel: "in_app",
+        payload: {
+          pctOfCeiling: pct,
+          accumulatedArs: rolling.toFixed(2),
+          ceilingArs: demoCeiling.toFixed(2),
+          category: "C",
+          source: "seed",
+        },
+      },
+    });
+  }
 
   console.log("Seed OK");
   console.log({
@@ -137,6 +197,8 @@ async function main() {
     clients: 2,
     incomes: incomes.length,
     rolling12mArs: rollup._sum.amountArs?.toString() ?? "0",
+    categoryCeilingArs: demoCeiling.toFixed(2),
+    pctOfCeiling: pct,
   });
 }
 

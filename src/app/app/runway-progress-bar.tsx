@@ -11,7 +11,7 @@ function fillTone(pct: number): string {
 
 /**
  * Visual runway bar with 80% / 95% zone markers.
- * No AlertEvent yet — Day 7 owns real alerts.
+ * AlertEvent persistence + banner live in lib/alerts + AlertsBanner.
  */
 export function RunwayProgressBar({ pctOfCeiling }: RunwayProgressBarProps) {
   if (pctOfCeiling === null) {

@@ -1,11 +1,17 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { Prisma } from "@/generated/prisma/client";
 import type { MonoCategory } from "@/generated/prisma/enums";
+import {
+  evaluateAndPersistAlerts,
+  getActiveAlerts,
+  type ActiveAlert,
+} from "@/lib/alerts";
 import { ensureLocalUser } from "@/lib/ensure-local-user";
 import { sumRolling12MonthsArs } from "@/lib/income-rollup";
 import { monthlyRolling12MonthsArs } from "@/lib/monthly-rollup";
 import { nextRecategorization } from "@/lib/recategorization";
 import { computeRunway } from "@/lib/runway";
+import { AlertsBanner } from "./alerts-banner";
 import { CategorySettingsForm } from "./category-settings-form";
 import { MonthlyChart } from "./monthly-chart";
 import { RecategorizationCountdownSection } from "./recategorization-countdown";
@@ -31,6 +37,7 @@ export default async function DashboardPage() {
   );
   let monthlyPoints: Awaited<ReturnType<typeof monthlyRolling12MonthsArs>> =
     [];
+  let activeAlerts: ActiveAlert[] = [];
 
   if (clerkId && email) {
     const user = await ensureLocalUser(clerkId, email);
@@ -41,12 +48,17 @@ export default async function DashboardPage() {
         ceiling > 0 ? user.categoryCeilingArs.toFixed(2) : "",
     };
     category = user.category;
-    const [accumulated, monthly] = await Promise.all([
+
+    // Persist any newly crossed thresholds / window (idempotent), then load banner.
+    await evaluateAndPersistAlerts(user.id);
+    const [accumulated, monthly, alerts] = await Promise.all([
       sumRolling12MonthsArs(user.id),
       monthlyRolling12MonthsArs(user.id),
+      getActiveAlerts(user.id),
     ]);
     runway = computeRunway(accumulated, user.categoryCeilingArs);
     monthlyPoints = monthly;
+    activeAlerts = alerts;
   }
 
   const countdown = nextRecategorization();
@@ -62,6 +74,12 @@ export default async function DashboardPage() {
           gráfico mensual.
         </p>
       </div>
+
+      {activeAlerts.length > 0 ? (
+        <div className="eo-reveal eo-reveal-delay-1">
+          <AlertsBanner alerts={activeAlerts} />
+        </div>
+      ) : null}
 
       <div className="eo-reveal eo-reveal-delay-1">
         <CategorySettingsForm defaults={defaults} />

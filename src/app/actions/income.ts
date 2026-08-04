@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { Prisma } from "@/generated/prisma/client";
+import { evaluateAndPersistAlerts } from "@/lib/alerts";
 import { getBnaVendedorRate, toArDateKey, type BnaCurrency } from "@/lib/bna";
 import { prisma } from "@/lib/db";
 import { requireLocalUser } from "@/lib/require-local-user";
@@ -161,6 +162,7 @@ export async function createIncome(
     },
   });
 
+  await evaluateAndPersistAlerts(user.id);
   revalidateIncomePaths(data.clientId);
 
   return {
@@ -231,6 +233,7 @@ export async function updateIncome(
     },
   });
 
+  await evaluateAndPersistAlerts(user.id);
   revalidateIncomePaths(data.clientId);
   if (existing.clientId && existing.clientId !== data.clientId) {
     revalidatePath(`/app/clientes/${existing.clientId}`);
@@ -266,6 +269,7 @@ export async function deleteIncome(
   }
 
   await prisma.income.delete({ where: { id: existing.id } });
+  await evaluateAndPersistAlerts(authResult.user.id);
   revalidateIncomePaths();
 
   return { ok: true };

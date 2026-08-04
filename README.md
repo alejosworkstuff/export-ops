@@ -11,7 +11,7 @@ Un cockpit mínimo para freelancers y contractors argentinos que exportan servic
 - **Ledger de ingresos:** cargás el cobro (USD/EUR) y la fecha; se convierte a ARS al tipo vendedor BNA del día.
 - **Runway fiscal:** acumulado rolling de 12 meses, % del tope de tu categoría, countdown a la próxima recategorización (1 ene / 1 jul).
 - **Clientes:** quién paga, en qué moneda, por qué canal.
-- **Alertas:** aviso al 80% y al 95% del tope.
+- **Alertas:** aviso in-app al 80% y al 95% del tope, más ventana de recategorización (ene/jul).
 
 Una sola cosa: runway fiscal visible. No es un facturador.
 

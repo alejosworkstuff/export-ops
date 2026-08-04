@@ -91,10 +91,12 @@ model AlertEvent {
   userId    String
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   kind      AlertKind
+  /// CEILING_PCT: 80 | 95. RECATEGORIZATION_WINDOW: YYYYMM of deadline (e.g. 202701).
   threshold Int
   sentAt    DateTime  @default(now())
   channel   String
   payload   Json?
 
+  @@unique([userId, kind, threshold])
   @@index([userId, kind, threshold])
 }
