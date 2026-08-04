@@ -11,9 +11,10 @@ export async function GET() {
       { status: 200 },
     );
   } catch (err) {
-    const message = err instanceof Error ? err.message : "unknown";
+    // Log server-side only — never echo DB/driver messages to clients.
+    console.error("[health] db check failed", err);
     return NextResponse.json(
-      { ok: false, db: "down", error: message, ts: new Date().toISOString() },
+      { ok: false, db: "down", ts: new Date().toISOString() },
       { status: 503 },
     );
   }
