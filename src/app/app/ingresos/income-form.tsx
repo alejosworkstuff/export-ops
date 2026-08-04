@@ -58,7 +58,8 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
       <div>
         <h2 className="eo-panel-title">Cargar ingreso</h2>
         <p className="eo-panel-desc">
-          Monto en moneda extranjera → ARS al BNA vendedor del día.
+          Monto en moneda extranjera, convertido a pesos al tipo BNA vendedor
+          del día.
         </p>
       </div>
 
@@ -252,7 +253,7 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
           </button>
           {pending ? (
             <p className="mt-2 text-xs text-zinc-500">
-              Consultando BNA y guardando en el ledger…
+              Consultando el BNA y guardando…
             </p>
           ) : null}
         </div>
@@ -265,7 +266,7 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
             tabIndex={-1}
             className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-900 outline-none"
           >
-            Guardado. {arsFmt.format(Number(state.amountArs))} @ BNA{" "}
+            Guardado. {arsFmt.format(Number(state.amountArs))} al tipo BNA{" "}
             {formatBna(state.bnaRate)}.
           </p>
         ) : null}

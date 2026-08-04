@@ -55,7 +55,7 @@ export function IncomeList({
         </div>
         {totalCount > 0 ? (
           <p className="text-sm text-[var(--eo-muted)]">
-            {filterClientId ? "Total filtrado: " : "Total ledger: "}
+            {filterClientId ? "Total filtrado: " : "Total: "}
             <span className="eo-stat text-base">
               {arsFmt.format(Number(totalArs.toString()))}
             </span>
@@ -66,12 +66,12 @@ export function IncomeList({
       {rows.length === 0 ? (
         <div className="rounded-[var(--eo-radius-sm)] border border-dashed border-[var(--eo-line)] bg-white/50 px-4 py-12 text-center">
           <p className="text-sm font-semibold text-[var(--eo-ink)]">
-            {filterClientId ? "Sin resultados" : "Ledger vacío"}
+            {filterClientId ? "Sin resultados" : "Todavía sin ingresos"}
           </p>
           <p className="mx-auto mt-1 max-w-sm text-sm text-[var(--eo-muted)]">
             {filterClientId
               ? "Probá otro cliente o cargá un ingreso vinculado."
-              : "Cuando cobres en USD/EUR, cargá el ingreso arriba. Acá vas a ver el historial, el total en ARS y qué falta facturar."}
+              : "Cuando cobres en USD o EUR, cargá el ingreso arriba. Acá vas a ver el historial, el total en pesos y qué falta facturar."}
           </p>
         </div>
       ) : (

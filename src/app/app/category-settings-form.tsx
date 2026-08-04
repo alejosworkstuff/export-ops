@@ -56,8 +56,8 @@ export function CategorySettingsForm({ defaults }: CategorySettingsFormProps) {
       <div>
         <h2 className="eo-panel-title">Categoría y tope</h2>
         <p className="eo-panel-desc">
-          Declarás tu categoría Monotributo y el tope anual en ARS. No
-          consultamos ARCA — es un snapshot tuyo para calcular runway.
+          Declarás tu categoría Monotributo y el tope anual en pesos. No
+          consultamos ARCA: usamos el número que vos cargás.
         </p>
       </div>
 

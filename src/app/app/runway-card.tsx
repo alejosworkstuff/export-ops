@@ -22,10 +22,10 @@ export function RunwayCard({ category, runway }: RunwayCardProps) {
     <section className="eo-panel space-y-5" aria-labelledby="runway-heading">
       <div>
         <h2 id="runway-heading" className="eo-panel-title">
-          Runway 12 meses
+          Acumulado 12 meses
         </h2>
         <p className="eo-panel-desc">
-          Acumulado rolling vs tope declarado (categoría {category}).
+          Cuánto llevás frente al tope de categoría {category}.
         </p>
       </div>
 

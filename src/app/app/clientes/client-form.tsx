@@ -9,7 +9,7 @@ import {
   fieldBorder,
   fieldClass,
 } from "@/app/app/ingresos/ui";
-import { CHANNELS, CURRENCIES } from "@/lib/client-options";
+import { CURRENCIES } from "@/lib/client-options";
 
 function fieldError(
   state: ClientMutationResult | null,
@@ -45,7 +45,7 @@ export function ClientForm() {
       <div>
         <h2 className="eo-panel-title">Nuevo cliente</h2>
         <p className="eo-panel-desc">
-          Quién paga, en qué moneda y por qué canal — sin CRM de más.
+          Quién paga, en qué moneda y por qué canal.
         </p>
       </div>
 
@@ -129,26 +129,26 @@ export function ClientForm() {
             Canal{" "}
             <span className="font-normal text-zinc-500">(opcional)</span>
           </label>
-          <select
+          <input
             id="channel"
             name="channel"
-            defaultValue=""
+            type="text"
+            maxLength={80}
             disabled={pending}
+            placeholder="Ej. transferencia bancaria"
             className={`${fieldClass} ${fieldBorder(Boolean(channelError))}`}
             aria-invalid={Boolean(channelError)}
-          >
-            <option value="">Sin canal</option>
-            {CHANNELS.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
+            aria-describedby={channelError ? "channel-error" : "channel-hint"}
+          />
           {channelError ? (
-            <p className="text-xs text-red-600" role="alert">
+            <p id="channel-error" className="text-xs text-red-600" role="alert">
               {channelError}
             </p>
-          ) : null}
+          ) : (
+            <p id="channel-hint" className="text-xs text-[var(--eo-muted)]">
+              Creá el nombre del medio por el que te paga este cliente.
+            </p>
+          )}
         </div>
 
         <div className="space-y-1.5 sm:col-span-2">

@@ -23,7 +23,8 @@ export default async function ClientesPage() {
           Clientes
         </h1>
         <p className="text-sm text-[var(--eo-muted)]">
-          Quién te paga, canal y acumulado en ARS — para vincular al ledger.
+          Quién te paga, por qué canal, y el total en pesos para asociarlo a
+          cada cobro.
         </p>
       </div>
 

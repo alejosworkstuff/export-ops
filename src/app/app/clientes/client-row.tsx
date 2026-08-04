@@ -14,7 +14,7 @@ import {
   type DeleteClientResult,
 } from "@/app/actions/client";
 import { fieldBorder, fieldClassCompact } from "@/app/app/ingresos/ui";
-import { CHANNELS, CURRENCIES } from "@/lib/client-options";
+import { CURRENCIES } from "@/lib/client-options";
 
 export type ClientRowView = {
   id: string;
@@ -162,20 +162,16 @@ export function ClientRow({ row }: { row: ClientRowView }) {
               >
                 Canal
               </label>
-              <select
+              <input
                 id={`channel-${row.id}`}
                 name="channel"
+                type="text"
+                maxLength={80}
                 disabled={isUpdating}
                 defaultValue={row.channel ?? ""}
+                placeholder="Nombre del canal"
                 className={fieldClassCompact}
-              >
-                <option value="">Sin canal</option>
-                {CHANNELS.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
 
             <div className="space-y-1 sm:col-span-2">

@@ -8,7 +8,7 @@ import {
   type ClientMutationResult,
 } from "@/app/actions/client";
 import { fieldBorder, fieldClass } from "@/app/app/ingresos/ui";
-import { CHANNELS, CURRENCIES } from "@/lib/client-options";
+import { CURRENCIES } from "@/lib/client-options";
 
 type Props = {
   client: {
@@ -135,20 +135,16 @@ export function ClientDetailEditor({ client }: Props) {
           <label htmlFor="detail-channel" className="eo-label">
             Canal
           </label>
-          <select
+          <input
             id="detail-channel"
             name="channel"
+            type="text"
+            maxLength={80}
             disabled={pending || isDeleting}
             defaultValue={client.channel ?? ""}
+            placeholder="Nombre del canal"
             className={fieldClass}
-          >
-            <option value="">Sin canal</option>
-            {CHANNELS.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
+          />
         </div>
 
         <div className="space-y-1.5 sm:col-span-2">

@@ -74,8 +74,7 @@ export default async function IngresosPage({ searchParams }: IngresosPageProps) 
           Ingresos
         </h1>
         <p className="text-sm text-[var(--eo-muted)]">
-          Ledger de ingresos en moneda extranjera convertidos a ARS (BNA
-          vendedor).
+          Cobros en moneda extranjera convertidos a pesos (tipo BNA vendedor).
           {selectedName ? (
             <>
               {" "}

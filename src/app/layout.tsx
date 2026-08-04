@@ -14,8 +14,9 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "ExportOps",
-  description: "Freelancer Export Ops Cockpit — runway vs Monotributo tope",
+  title: "ExportOps — Runway fiscal para freelancers que exportan",
+  description:
+    "Sabé cuánto te queda de categoría antes de facturar de más. Cobros USD/EUR al BNA, acumulado 12 meses y alertas. Sin ARCA.",
 };
 
 export default function RootLayout({

@@ -4,7 +4,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { ensureLocalUser } from "@/lib/ensure-local-user";
 
 const nav = [
-  { href: "/app", label: "Dashboard" },
+  { href: "/app", label: "Resumen" },
   { href: "/app/ingresos", label: "Ingresos" },
   { href: "/app/clientes", label: "Clientes" },
 ] as const;

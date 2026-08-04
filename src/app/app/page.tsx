@@ -67,10 +67,10 @@ export default async function DashboardPage() {
     <div className="space-y-6">
       <div className="eo-reveal space-y-2">
         <h1 className="eo-font-display text-3xl font-bold tracking-tight text-[var(--eo-ink)] sm:text-4xl">
-          Dashboard
+          Resumen
         </h1>
         <p className="max-w-2xl text-sm leading-relaxed text-[var(--eo-muted)]">
-          Tope declarado, runway 12 meses, countdown a recategorización y
+          Tu tope, el acumulado de 12 meses, la próxima recategorización y el
           gráfico mensual.
         </p>
       </div>

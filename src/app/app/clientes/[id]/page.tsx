@@ -44,13 +44,13 @@ export default async function ClienteDetailPage({ params }: PageProps) {
         <p className="text-sm text-[var(--eo-muted)]">
           {[client.country, client.currency, client.channel]
             .filter(Boolean)
-            .join(" · ") || "Sin metadatos"}
+            .join(" · ") || "Sin país, moneda ni canal"}
         </p>
       </div>
 
       <div className="eo-reveal eo-reveal-delay-1 grid gap-4 sm:grid-cols-2">
         <div className="eo-panel">
-          <p className="eo-meta">Acumulado ARS</p>
+          <p className="eo-meta">Acumulado en pesos</p>
           <p className="eo-stat mt-1 text-2xl">
             {arsFmt.format(Number(client.totalArs.toString()))}
           </p>
@@ -65,7 +65,7 @@ export default async function ClienteDetailPage({ params }: PageProps) {
             href={`/app/ingresos?clientId=${client.id}`}
             className="eo-btn-ghost inline-flex !px-3 !py-1.5 text-sm"
           >
-            Ver en ledger
+            Ver ingresos
           </Link>
           <Link
             href="/app/ingresos"

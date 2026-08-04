@@ -216,6 +216,113 @@ body > * {
   box-shadow: 0 0 0 3px var(--eo-danger-soft) !important;
 }
 
+/* ------------------------------------------------------------------ */
+/* Glass select — progressive enhancement (Chromium+); else native.   */
+/* Opt-in: appearance: base-select on <select> + ::picker(select).   */
+/* ------------------------------------------------------------------ */
+
+select.eo-field,
+select.eo-field-compact {
+  cursor: pointer;
+  padding-right: 2.25rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E%3Cpath stroke='%235b657a' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  background-size: 1rem;
+}
+
+select.eo-field:disabled,
+select.eo-field-compact:disabled {
+  cursor: not-allowed;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E%3Cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+}
+
+@supports (appearance: base-select) {
+  select.eo-field,
+  select.eo-field-compact,
+  select.eo-field::picker(select),
+  select.eo-field-compact::picker(select) {
+    appearance: base-select;
+  }
+
+  select.eo-field,
+  select.eo-field-compact {
+    background-image: none;
+  }
+
+  select.eo-field::picker-icon,
+  select.eo-field-compact::picker-icon {
+    color: var(--eo-muted);
+    transition: transform 180ms ease, color 180ms ease;
+  }
+
+  select.eo-field:open::picker-icon,
+  select.eo-field-compact:open::picker-icon {
+    color: var(--eo-accent-deep);
+    transform: rotate(180deg);
+  }
+
+  select.eo-field:open,
+  select.eo-field-compact:open {
+    border-color: rgba(13, 148, 136, 0.55);
+    box-shadow: 0 0 0 3px var(--eo-accent-soft);
+  }
+
+  select.eo-field::picker(select),
+  select.eo-field-compact::picker(select) {
+    margin-top: 0.35rem;
+    padding: 0.35rem;
+    border: 1px solid var(--eo-line);
+    border-radius: var(--eo-radius);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(16px) saturate(1.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    box-shadow: var(--eo-shadow), 0 18px 40px -20px rgba(12, 18, 34, 0.35);
+    color: var(--eo-ink);
+  }
+
+  select.eo-field option,
+  select.eo-field-compact option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.1rem 0;
+    padding: 0.55rem 0.75rem;
+    border-radius: var(--eo-radius-sm);
+    background: transparent;
+    color: var(--eo-ink);
+    cursor: pointer;
+    transition: background-color 140ms ease, color 140ms ease;
+  }
+
+  select.eo-field option:hover,
+  select.eo-field-compact option:hover,
+  select.eo-field option:focus,
+  select.eo-field-compact option:focus,
+  select.eo-field option:checked,
+  select.eo-field-compact option:checked {
+    background: var(--eo-accent-soft);
+    color: var(--eo-accent-deep);
+  }
+
+  select.eo-field option::checkmark,
+  select.eo-field-compact option::checkmark {
+    order: 1;
+    margin-inline-start: auto;
+    color: var(--eo-accent-deep);
+    font-size: 0.85em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  select.eo-field::picker-icon,
+  select.eo-field-compact::picker-icon,
+  select.eo-field option,
+  select.eo-field-compact option {
+    transition: none !important;
+  }
+}
+
 .eo-btn {
   display: inline-flex;
   align-items: center;

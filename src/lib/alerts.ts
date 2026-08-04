@@ -152,7 +152,7 @@ function formatCeilingAlert(event: AlertEvent, pct: number): ActiveAlert {
       event.threshold >= 95
         ? `Alerta crítica: ${event.threshold}% del tope`
         : `Alerta: ${event.threshold}% del tope`,
-    body: `Tu acumulado de 12 meses está en ${pctLabel}% del tope declarado. Revisá el runway antes de seguir facturando.`,
+    body: `Tu acumulado de 12 meses está en ${pctLabel}% del tope declarado. Revisá cuánto te queda antes de seguir facturando.`,
   };
 }
 
@@ -171,8 +171,8 @@ function formatRecategorizationAlert(
     kind: event.kind,
     threshold: event.threshold,
     severity: countdown.daysRemaining <= 14 ? "danger" : "warn",
-    title: "Ventana de recategorización",
-    body: `Faltan ${days} para el ${countdown.label}. Revisá tu categoría y tope antes de la fecha.`,
+    title: "Se acerca la recategorización",
+    body: `Faltan ${days} para el ${countdown.label}. Revisá tu categoría y tope antes de esa fecha.`,
   };
 }
 

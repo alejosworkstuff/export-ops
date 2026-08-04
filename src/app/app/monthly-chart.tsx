@@ -19,13 +19,13 @@ export function MonthlyChart({ points }: MonthlyChartProps) {
           Ingresos por mes
         </h2>
         <p className="eo-panel-desc">
-          Últimos 12 meses (ARS @ BNA). Barras CSS — sin librería de charts.
+          Últimos 12 meses, en pesos al tipo BNA del día.
         </p>
       </div>
 
       {!hasAny ? (
         <p className="text-sm text-[var(--eo-muted)]" role="status">
-          Todavía no hay ingresos en la ventana de 12 meses.
+          Todavía no hay ingresos en los últimos 12 meses.
         </p>
       ) : (
         <div className="space-y-3">

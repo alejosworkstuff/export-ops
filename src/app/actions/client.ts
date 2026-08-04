@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { CHANNELS, CURRENCIES } from "@/lib/client-options";
+import { CURRENCIES } from "@/lib/client-options";
 import { prisma } from "@/lib/db";
 import { requireLocalUser } from "@/lib/require-local-user";
 
@@ -26,9 +26,11 @@ const clientFieldsSchema = z.object({
     .transform(emptyToNull),
   currency: z.enum(CURRENCIES).default("USD"),
   channel: z
-    .union([z.enum(CHANNELS), z.literal(""), z.null()])
+    .string()
+    .max(80, "Máximo 80 caracteres")
     .optional()
-    .transform((v) => (v && v.length > 0 ? v : null)),
+    .nullable()
+    .transform(emptyToNull),
   notes: z
     .string()
     .max(1000)

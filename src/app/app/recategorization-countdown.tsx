@@ -22,7 +22,7 @@ export function RecategorizationCountdownSection({
           Próxima recategorización
         </h2>
         <p className="eo-panel-desc">
-          Ventanas Monotributo: 1 de enero y 1 de julio (calendario AR).
+          En Monotributo se revisa el 1 de enero y el 1 de julio.
         </p>
       </div>
 
