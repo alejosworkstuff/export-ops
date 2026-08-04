@@ -41,14 +41,25 @@ Una sola cosa: **runway fiscal visible**. No es un facturador.
 
 ## Screenshots
 
-Capturá desde la demo live (seed @ ~82% muestra el banner 80%):
+Demo live con seed @ ~82% (banner 80% activo en el preview de la landing).
 
-1. **Landing** — `/` hero + runway preview + cómo funciona  
-2. **Dashboard** — `/app` % tope, barra, countdown, alerta  
-3. **Ledger** — `/app/ingresos` alta + lista convertida a ARS  
-4. **Clientes** — `/app/clientes` vínculo income ↔ client  
+### Landing — `/`
 
-Podés pegar capturas en `docs/screenshots/` y linkearlas acá cuando las tengas.
+Hero + preview del acumulado 12 meses + countdown de recategorización.
+
+![Landing ExportOps](./screenshots/export-ops-landing.png)
+
+### Ledger — `/app/ingresos`
+
+Alta de cobro USD/EUR, conversión BNA vendedor y historial con total ARS.
+
+![Ledger ExportOps](./screenshots/export-ops-ledger.png)
+
+### Clientes — `/app/clientes`
+
+Quién paga, moneda, canal y vínculo income ↔ client.
+
+![Clientes ExportOps](./screenshots/export-ops-client-page.png)
 
 ## Setup local
 
