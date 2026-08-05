@@ -1,6 +1,6 @@
 /**
- * Day 7 QA — pure alert helpers (no DB).
- * Run: npx tsx scripts/qa-day7-alerts.ts
+ * QA — pure alert helpers (no DB).
+ * Run: npx tsx scripts/qa-alerts.ts
  */
 import assert from "node:assert/strict";
 import {
@@ -28,4 +28,4 @@ assert.equal(
 );
 assert.equal(isInRecategorizationWindow(-1), false);
 
-console.log("qa-day7-alerts: OK");
+console.log("qa-alerts: OK");
