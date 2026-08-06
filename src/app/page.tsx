@@ -26,7 +26,7 @@ const STEPS = [
 export default function Home() {
   return (
     <div className="flex min-h-full flex-1 flex-col">
-      {/* Hero — one composition: brand, headline, support, CTA, product visual */}
+      {/* Hero: one composition: brand, headline, support, CTA, product visual */}
       <section className="relative overflow-hidden px-6 pb-16 pt-14 sm:pb-24 sm:pt-20">
         <div
           aria-hidden
@@ -54,7 +54,7 @@ export default function Home() {
             <HomeAuthCta className="eo-reveal eo-reveal-delay-3 mt-8 flex flex-wrap items-center gap-3" />
           </div>
 
-          {/* Product visual — runway snapshot, not a card collage */}
+          {/* Product visual: runway snapshot, not a card collage */}
           <div
             className="eo-reveal eo-reveal-delay-2 relative mx-auto w-full max-w-md lg:mx-0 lg:max-w-none"
             aria-hidden
@@ -83,7 +83,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="mt-5 rounded-xl bg-[var(--eo-warn-soft)] px-3 py-2 text-xs font-medium text-[var(--eo-warn)]">
-                Alerta 80% activa — estás cerca del techo.
+                Alerta 80% activa: estás cerca del techo.
               </p>
             </div>
           </div>
@@ -98,7 +98,7 @@ export default function Home() {
             Freelancers que exportan y cobran afuera
           </h2>
           <p className="mt-4 text-base leading-relaxed text-[var(--eo-muted)] sm:text-lg">
-            Programación, diseño, consulting — Wise, Payoneer, Deel. Una sola
+            Programación, diseño, consulting: Wise, Payoneer, Deel. Una sola
             cosa: ver cuánto te queda de categoría. No es un facturador.
           </p>
         </div>

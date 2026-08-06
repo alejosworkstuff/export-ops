@@ -42,7 +42,7 @@ async function main() {
       country: "US",
       currency: "USD",
       channel: "Wise",
-      notes: "Contrato mensual — demo seed",
+      notes: "Contrato mensual, demo seed",
     },
   });
 

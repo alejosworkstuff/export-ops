@@ -17,7 +17,7 @@ const MONO_CATEGORIES = Object.values(MonoCategory) as [
 
 const categorySettingsSchema = z.object({
   category: z.enum(MONO_CATEGORIES),
-  /** User-declared tope ARS — snapshot, not an ARCA scrape. */
+  /** User-declared tope ARS: snapshot, not an ARCA scrape. */
   categoryCeilingArs: z.coerce
     .number()
     .positive("El tope debe ser mayor a 0"),

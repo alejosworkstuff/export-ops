@@ -1,5 +1,5 @@
 /**
- * QA — pure alert helpers (no DB).
+ * QA, pure alert helpers (no DB).
  * Run: npx tsx scripts/qa-alerts.ts
  */
 import assert from "node:assert/strict";

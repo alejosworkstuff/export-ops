@@ -276,7 +276,7 @@ export async function deleteIncome(
 }
 
 /**
- * Manual “qué falta facturar” flag — not ARCA/CAE, just ops tracking.
+ * Manual “qué falta facturar” flag: not ARCA/CAE, just ops tracking.
  * Sets absolute value (safer than flip under concurrent clicks).
  */
 export async function setIncomeInvoiced(

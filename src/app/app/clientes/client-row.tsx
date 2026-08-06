@@ -234,13 +234,13 @@ export function ClientRow({ row }: { row: ClientRowView }) {
         </Link>
       </td>
       <td className="whitespace-nowrap px-3 py-2 text-zinc-600">
-        {row.country ?? "—"}
+        {row.country ?? "-"}
       </td>
       <td className="whitespace-nowrap px-3 py-2 tabular-nums">
         {row.currency}
       </td>
       <td className="whitespace-nowrap px-3 py-2 text-zinc-600">
-        {row.channel ?? "—"}
+        {row.channel ?? "-"}
       </td>
       <td className="whitespace-nowrap px-3 py-2 tabular-nums">
         <span className="text-zinc-500">{row.incomeCount} · </span>

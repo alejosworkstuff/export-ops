@@ -16,7 +16,7 @@ function parseDateKey(key: string): { y: number; m: number; d: number } {
   return { y, m, d };
 }
 
-/** UTC noon for a calendar key — stable day-diff without DST quirks. */
+/** UTC noon for a calendar key, stable day-diff without DST quirks. */
 function utcNoonFromKey(key: string): Date {
   const { y, m, d } = parseDateKey(key);
   return new Date(Date.UTC(y, m - 1, d, 12, 0, 0));
@@ -39,7 +39,7 @@ function daysBetweenKeys(fromKey: string, toKey: string): number {
 
 /**
  * Next Monotributo recategorization checkpoint: 1 Jan or 1 Jul (AR calendar).
- * Pure — no DB. AlertEvent for the window: lib/alerts.
+ * Pure, no DB. AlertEvent for the window: lib/alerts.
  */
 export function nextRecategorization(now = new Date()): RecategorizationCountdown {
   const todayKey = toArDateKey(now);

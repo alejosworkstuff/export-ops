@@ -137,7 +137,7 @@ export default async function ClienteDetailPage({ params }: PageProps) {
                       {arsFmt.format(Number(row.amountArs.toString()))}
                     </td>
                     <td className="max-w-[14rem] truncate px-3 py-2 text-zinc-600">
-                      {row.description ?? "—"}
+                      {row.description ?? "-"}
                     </td>
                     <td className="whitespace-nowrap px-3 py-2">
                       <span

@@ -14,7 +14,7 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "ExportOps — Runway fiscal para freelancers que exportan",
+  title: "ExportOps: Runway fiscal para freelancers que exportan",
   description:
     "Sabé cuánto te queda de categoría antes de facturar de más. Cobros USD/EUR al BNA, acumulado 12 meses y alertas. Sin ARCA.",
 };

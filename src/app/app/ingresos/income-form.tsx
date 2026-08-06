@@ -177,7 +177,7 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
           ) : null}
           {clients.length === 0 ? (
             <p className="text-xs text-zinc-500">
-              Todavía no hay clientes —{" "}
+              Todavía no hay clientes:{" "}
               <a
                 href="/app/clientes"
                 className="underline underline-offset-2 hover:text-zinc-700"
@@ -221,7 +221,7 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
           >
             BNA vendedor manual{" "}
             <span className="font-normal text-zinc-500">
-              (solo si falla el fetch — típico EUR histórico)
+              (solo si falla el fetch: típico EUR histórico)
             </span>
           </label>
           <input

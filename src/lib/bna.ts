@@ -132,7 +132,7 @@ export async function getBnaVendedorRate(options: {
     return { ...hit, source: "cache" };
   }
 
-  // EUR has no public historical series here — today via dolarapi, else require paste.
+  // EUR has no public historical series here, today via dolarapi, else require paste.
   if (currency === "EUR") {
     if (dateKey === todayArKey()) {
       const rate = await fetchDolarapiVenta("EUR");

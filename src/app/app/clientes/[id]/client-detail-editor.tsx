@@ -66,7 +66,7 @@ export function ClientDetailEditor({ client }: Props) {
     <section className="eo-panel space-y-5">
       <div>
         <h2 className="eo-panel-title">Datos del cliente</h2>
-        <p className="eo-panel-desc">Editá y guardá — o borrá si ya no aplica.</p>
+        <p className="eo-panel-desc">Editá y guardá, o borrá si ya no aplica.</p>
       </div>
 
       <form

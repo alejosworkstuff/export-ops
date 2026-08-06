@@ -46,7 +46,7 @@ function monthLabel(monthKey: string): string {
 
 /**
  * Monthly SUM(amountArs) for the rolling 12 calendar months (AR), zero-filled.
- * No chart lib — callers render CSS/SVG bars.
+ * No chart lib, callers render CSS/SVG bars.
  */
 export async function monthlyRolling12MonthsArs(
   userId: string,

@@ -3,13 +3,13 @@ import { Prisma } from "@/generated/prisma/client";
 export type RunwaySnapshot = {
   accumulatedArs: Prisma.Decimal;
   ceilingArs: Prisma.Decimal;
-  /** null when ceiling is unset (≤ 0) — % would be meaningless. */
+  /** null when ceiling is unset (≤ 0), % would be meaningless. */
   pctOfCeiling: number | null;
 };
 
 /**
  * Rolling 12m ARS vs user-declared category ceiling.
- * Pure math — no DB. Call after sumRolling12MonthsArs + User.categoryCeilingArs.
+ * Pure math, no DB. Call after sumRolling12MonthsArs + User.categoryCeilingArs.
  */
 export function computeRunway(
   accumulatedArs: Prisma.Decimal,
