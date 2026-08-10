@@ -79,7 +79,6 @@ export async function updateCategorySettings(
   };
 }
 
-/** FormData adapter for `<form action={...}>` + `useActionState`. */
 export async function updateCategorySettingsFormAction(
   _prev: CategorySettingsResult | null,
   formData: FormData,

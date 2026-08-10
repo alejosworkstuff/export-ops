@@ -11,9 +11,6 @@ function toneClasses(severity: ActiveAlert["severity"]): string {
   return "border-[var(--eo-warn)]/35 bg-[var(--eo-warn-soft)] text-[var(--eo-warn)]";
 }
 
-/**
- * In-app alert surface for active ceiling / recategorization events.
- */
 export function AlertsBanner({ alerts }: AlertsBannerProps) {
   if (alerts.length === 0) return null;
 

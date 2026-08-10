@@ -275,10 +275,6 @@ export async function deleteIncome(
   return { ok: true };
 }
 
-/**
- * Manual “qué falta facturar” flag: not ARCA/CAE, just ops tracking.
- * Sets absolute value (safer than flip under concurrent clicks).
- */
 export async function setIncomeInvoiced(
   incomeId: string,
   invoiced: boolean,
@@ -311,10 +307,6 @@ export async function setIncomeInvoiced(
   return { ok: true, invoiced };
 }
 
-/**
- * FormData adapter for `<form action={...}>` + `useActionState`.
- * Keeps `createIncome` as the typed core; this only maps HTML fields → input.
- */
 export async function createIncomeFormAction(
   _prev: IncomeMutationResult | null,
   formData: FormData,

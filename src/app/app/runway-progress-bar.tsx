@@ -9,10 +9,6 @@ function fillTone(pct: number): string {
   return "eo-progress-fill--ok";
 }
 
-/**
- * Visual runway bar with 80% / 95% zone markers.
- * AlertEvent persistence + banner live in lib/alerts + AlertsBanner.
- */
 export function RunwayProgressBar({ pctOfCeiling }: RunwayProgressBarProps) {
   if (pctOfCeiling === null) {
     return (
