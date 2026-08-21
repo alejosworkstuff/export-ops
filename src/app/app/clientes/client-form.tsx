@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import {
   createClientFormAction,
   type ClientMutationResult,
@@ -24,12 +24,12 @@ export function ClientForm() {
     createClientFormAction,
     null,
   );
-  const [formKey, setFormKey] = useState(0);
+  const formRef = useRef<HTMLFormElement>(null);
   const successRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     if (state?.ok) {
-      setFormKey((k) => k + 1);
+      formRef.current?.reset();
       successRef.current?.focus();
     }
   }, [state]);
@@ -50,7 +50,7 @@ export function ClientForm() {
       </div>
 
       <form
-        key={formKey}
+        ref={formRef}
         action={formAction}
         className="grid max-w-xl gap-4 sm:grid-cols-2"
         aria-busy={pending}

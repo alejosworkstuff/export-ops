@@ -3,7 +3,6 @@
 import Link from "next/link";
 import {
   useActionState,
-  useEffect,
   useState,
   useTransition,
 } from "react";
@@ -60,12 +59,6 @@ export function ClientRow({ row }: { row: ClientRowView }) {
     updateClientFormAction,
     null,
   );
-
-  useEffect(() => {
-    if (updateState?.ok) {
-      setEditing(false);
-    }
-  }, [updateState]);
 
   function onDelete() {
     if (
@@ -211,6 +204,11 @@ export function ClientRow({ row }: { row: ClientRowView }) {
               {updateState && !updateState.ok ? (
                 <p className="text-sm text-red-700" role="alert">
                   {updateState.error}
+                </p>
+              ) : null}
+              {updateState?.ok ? (
+                <p className="text-sm text-emerald-700" role="status">
+                  Cambios guardados.
                 </p>
               ) : null}
             </div>

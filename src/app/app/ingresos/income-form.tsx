@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { useActionState, useEffect, useRef } from "react";
 import {
   createIncomeFormAction,
   type CreateIncomeResult,
@@ -36,12 +37,12 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
     createIncomeFormAction,
     null,
   );
-  const [formKey, setFormKey] = useState(0);
+  const formRef = useRef<HTMLFormElement>(null);
   const successRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     if (state?.ok) {
-      setFormKey((k) => k + 1);
+      formRef.current?.reset();
       successRef.current?.focus();
     }
   }, [state]);
@@ -64,7 +65,7 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
       </div>
 
       <form
-        key={formKey}
+        ref={formRef}
         action={formAction}
         className="grid max-w-xl gap-4 sm:grid-cols-2"
         aria-busy={pending}
@@ -178,12 +179,12 @@ export function IncomeForm({ clients, defaultEarnedAt }: IncomeFormProps) {
           {clients.length === 0 ? (
             <p className="text-xs text-zinc-500">
               Todavía no hay clientes:{" "}
-              <a
+              <Link
                 href="/app/clientes"
                 className="underline underline-offset-2 hover:text-zinc-700"
               >
                 creá uno
-              </a>{" "}
+              </Link>{" "}
               o cargá el ingreso igual.
             </p>
           ) : null}

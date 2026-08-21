@@ -3,7 +3,6 @@
 import Link from "next/link";
 import {
   useActionState,
-  useEffect,
   useOptimistic,
   useState,
   useTransition,
@@ -82,12 +81,6 @@ export function IncomeRow({
     updateIncomeFormAction,
     null,
   );
-
-  useEffect(() => {
-    if (updateState?.ok) {
-      setEditing(false);
-    }
-  }, [updateState]);
 
   function onDelete() {
     if (
@@ -288,6 +281,11 @@ export function IncomeRow({
               {updateState && !updateState.ok ? (
                 <p className="text-sm text-red-700" role="alert">
                   {updateState.error}
+                </p>
+              ) : null}
+              {updateState?.ok ? (
+                <p className="text-sm text-emerald-700" role="status">
+                  Cambios guardados.
                 </p>
               ) : null}
             </div>
