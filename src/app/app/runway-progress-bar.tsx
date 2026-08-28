@@ -1,5 +1,4 @@
 type RunwayProgressBarProps = {
-  /** % of category ceiling; null when tope unset. */
   pctOfCeiling: number | null;
 };
 

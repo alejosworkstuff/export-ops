@@ -1,22 +1,18 @@
 import { toArDateKey } from "@/lib/bna";
 
 export type RecategorizationCountdown = {
-  /** Next 1 Jan or 1 Jul as YYYY-MM-DD (AR calendar). */
   nextDateKey: string;
-  /** Human label es-AR, e.g. "1 de julio de 2026". */
   label: string;
-  /** Whole calendar days from today (AR) to nextDateKey. 0 = today. */
   daysRemaining: number;
 };
 
-const DEADLINE_MONTHS = [1, 7] as const; // January, July
+const DEADLINE_MONTHS = [1, 7] as const;
 
 function parseDateKey(key: string): { y: number; m: number; d: number } {
   const [y, m, d] = key.split("-").map(Number);
   return { y, m, d };
 }
 
-/** UTC noon for a calendar key, stable day-diff without DST quirks. */
 function utcNoonFromKey(key: string): Date {
   const { y, m, d } = parseDateKey(key);
   return new Date(Date.UTC(y, m - 1, d, 12, 0, 0));
@@ -37,10 +33,6 @@ function daysBetweenKeys(fromKey: string, toKey: string): number {
   return Math.round(ms / (24 * 60 * 60 * 1000));
 }
 
-/**
- * Next Monotributo recategorization checkpoint: 1 Jan or 1 Jul (AR calendar).
- * Pure, no DB. AlertEvent for the window: lib/alerts.
- */
 export function nextRecategorization(now = new Date()): RecategorizationCountdown {
   const todayKey = toArDateKey(now);
   const { y, m, d } = parseDateKey(todayKey);

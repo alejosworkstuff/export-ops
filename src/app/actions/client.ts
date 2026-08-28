@@ -173,7 +173,6 @@ export async function deleteClient(
     return { ok: false, error: "Cliente no encontrado" };
   }
 
-  // Income.clientId uses onDelete: SetNull: cobros quedan sin cliente.
   await prisma.client.delete({ where: { id: existing.id } });
   revalidateClientPaths();
 

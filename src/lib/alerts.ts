@@ -63,7 +63,6 @@ async function createAlertIfAbsent(input: {
       },
     });
   } catch (err) {
-    // Race: another request inserted the same unique key.
     if (
       err instanceof Prisma.PrismaClientKnownRequestError &&
       err.code === "P2002"
@@ -74,10 +73,6 @@ async function createAlertIfAbsent(input: {
   }
 }
 
-/**
- * Persist AlertEvents for crossed ceilings + approaching Jan/Jul window.
- * Idempotent per (userId, kind, threshold).
- */
 export async function evaluateAndPersistAlerts(
   userId: string,
   now = new Date(),
@@ -130,10 +125,6 @@ export async function evaluateAndPersistAlerts(
   return { runway, countdown, created };
 }
 
-/**
- * Clear ceiling alerts when the user changes tope/categoría so thresholds
- * can fire again against the new baseline.
- */
 export async function resetCeilingAlerts(userId: string): Promise<void> {
   await prisma.alertEvent.deleteMany({
     where: { userId, kind: AlertKind.CEILING_PCT },
@@ -176,10 +167,6 @@ function formatRecategorizationAlert(
   };
 }
 
-/**
- * Alerts that should surface in the dashboard banner right now.
- * Call after evaluateAndPersistAlerts so new crossings are persisted.
- */
 export async function getActiveAlerts(
   userId: string,
   now = new Date(),
@@ -220,7 +207,6 @@ export async function getActiveAlerts(
     }
   }
 
-  // Prefer critical ceiling → warn ceiling → recategorization
   active.sort((a, b) => {
     const rank = (x: ActiveAlert) => {
       if (x.kind === AlertKind.CEILING_PCT && x.threshold >= 95) return 0;

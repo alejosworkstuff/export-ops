@@ -4,9 +4,7 @@ import { prisma } from "@/lib/db";
 import { rolling12MonthsStart } from "@/lib/income-rollup";
 
 export type MonthlyArsPoint = {
-  /** YYYY-MM in America/Argentina/Buenos_Aires */
   monthKey: string;
-  /** Short es-AR label, e.g. "jul 26" */
   label: string;
   amountArs: number;
 };
@@ -15,7 +13,6 @@ function monthKeyFromDateKey(dateKey: string): string {
   return dateKey.slice(0, 7);
 }
 
-/** Last 12 calendar months ending at `now` (AR), oldest → newest. */
 export function rolling12MonthKeys(now = new Date()): string[] {
   const todayKey = toArDateKey(now);
   const [yStr, mStr] = todayKey.split("-");

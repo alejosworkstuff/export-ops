@@ -20,7 +20,6 @@ export type ClientOption = {
 
 type IncomeFormProps = {
   clients: ClientOption[];
-  /** YYYY-MM-DD in America/Argentina/Buenos_Aires */
   defaultEarnedAt: string;
 };
 

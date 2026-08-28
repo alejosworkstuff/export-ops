@@ -26,7 +26,6 @@ const STEPS = [
 export default function Home() {
   return (
     <div className="flex min-h-full flex-1 flex-col">
-      {/* Hero: one composition: brand, headline, support, CTA, product visual */}
       <section className="relative overflow-hidden px-6 pb-16 pt-14 sm:pb-24 sm:pt-20">
         <div
           aria-hidden
@@ -54,7 +53,6 @@ export default function Home() {
             <HomeAuthCta className="eo-reveal eo-reveal-delay-3 mt-8 flex flex-wrap items-center gap-3" />
           </div>
 
-          {/* Product visual: runway snapshot, not a card collage */}
           <div
             className="eo-reveal eo-reveal-delay-2 relative mx-auto w-full max-w-md lg:mx-0 lg:max-w-none"
             aria-hidden
@@ -90,7 +88,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Para quién */}
       <section className="border-t border-[var(--eo-line)] px-6 py-16 sm:py-20">
         <div className="mx-auto max-w-3xl text-center">
           <p className="eo-meta">Para quién</p>
@@ -104,7 +101,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Cómo funciona */}
       <section
         id="como-funciona"
         className="scroll-mt-24 border-t border-[var(--eo-line)] px-6 py-16 sm:py-20"
@@ -139,7 +135,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer disclaimer */}
       <footer className="mt-auto border-t border-[var(--eo-line)] px-6 py-10">
         <div className="mx-auto flex max-w-6xl flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>

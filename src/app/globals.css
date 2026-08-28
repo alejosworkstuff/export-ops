@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* ExportOps design tokens: light cockpit (no OS dark flip) */
 :root {
   --eo-bg: #f4f7fb;
   --eo-bg-elevated: rgba(255, 255, 255, 0.72);
@@ -47,7 +46,6 @@ body {
   background-attachment: fixed;
 }
 
-/* Fine grain without images */
 body::before {
   content: "";
   pointer-events: none;
@@ -216,10 +214,6 @@ body > * {
   box-shadow: 0 0 0 3px var(--eo-danger-soft) !important;
 }
 
-/* ------------------------------------------------------------------ */
-/* Glass select: progressive enhancement (Chromium+); else native.   */
-/* Opt-in: appearance: base-select on <select> + ::picker(select).   */
-/* ------------------------------------------------------------------ */
 
 select.eo-field,
 select.eo-field-compact {

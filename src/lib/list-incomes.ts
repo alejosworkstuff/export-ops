@@ -22,7 +22,6 @@ export type IncomeListPage = {
   pageSize: number;
   totalCount: number;
   totalPages: number;
-  /** SUM(amountArs) across all incomes for this user (not just the page). */
   totalArs: Prisma.Decimal;
 };
 
@@ -32,14 +31,9 @@ function clampPage(page: number, totalPages: number): number {
 }
 
 export type ListIncomesOptions = {
-  /** When set, only incomes for this client (must already be owned by user). */
   clientId?: string | null;
 };
 
-/**
- * Paginated income ledger for a user, newest first.
- * `totalArs` is the filtered ledger sum (page-independent).
- */
 export async function listIncomesPage(
   userId: string,
   pageRaw: number,

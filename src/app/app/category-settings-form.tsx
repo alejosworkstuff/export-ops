@@ -12,7 +12,6 @@ const CATEGORIES = Object.values(MonoCategory);
 
 export type CategorySettingsDefaults = {
   category: MonoCategory;
-  /** Empty string when ceiling is 0 (unset). */
   categoryCeilingArs: string;
 };
 

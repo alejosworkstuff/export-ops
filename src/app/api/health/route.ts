@@ -11,7 +11,6 @@ export async function GET() {
       { status: 200 },
     );
   } catch (err) {
-    // Log server-side only: never echo DB/driver messages to clients.
     console.error("[health] db check failed", err);
     return NextResponse.json(
       { ok: false, db: "down", ts: new Date().toISOString() },

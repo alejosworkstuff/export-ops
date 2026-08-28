@@ -17,7 +17,6 @@ import {
 import type { ClientOption } from "./income-form";
 import { fieldBorder, fieldClassCompact } from "./ui";
 
-/** Plain JSON-safe row for Client Components (no Prisma.Decimal). */
 export type IncomeRowView = {
   id: string;
   earnedAt: string;

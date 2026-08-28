@@ -1,10 +1,6 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { ensureLocalUser } from "@/lib/ensure-local-user";
 
-/**
- * Clerk session → local Postgres User (upsert on first call).
- * Shared by income / category / future client actions.
- */
 export async function requireLocalUser(): Promise<
   | { ok: true; user: { id: string } }
   | { ok: false; error: string }

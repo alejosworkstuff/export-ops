@@ -1,15 +1,9 @@
-/**
- * BNA vendedor rate helper.
- * - USD historical: bluelytics Oficial series
- * - USD/EUR "today": dolarapi oficial venta
- * - Always accepts manual paste; caches by currency+day
- */
 
 export type BnaCurrency = "USD" | "EUR";
 
 export type BnaRateResult = {
   rate: number;
-  date: string; // YYYY-MM-DD (rate day actually used)
+  date: string;
   currency: BnaCurrency;
   source: "cache" | "manual" | "dolarapi" | "bluelytics";
 };
@@ -20,7 +14,6 @@ function cacheKey(currency: BnaCurrency, date: string) {
   return `${currency}:${date}`;
 }
 
-/** Normalize Date | YYYY-MM-DD to calendar day in America/Argentina/Buenos_Aires. */
 export function toArDateKey(input: Date | string): string {
   if (typeof input === "string" && /^\d{4}-\d{2}-\d{2}$/.test(input)) {
     return input;
@@ -43,7 +36,6 @@ function todayArKey(): string {
   return toArDateKey(new Date());
 }
 
-/** Inject / override a rate for a day (paste path). */
 export function setManualBnaRate(
   date: Date | string,
   currency: BnaCurrency,
@@ -111,10 +103,6 @@ function findRateOnOrBefore(
   return sorted.find((p) => p.date <= dateKey);
 }
 
-/**
- * Resolve BNA vendedor for `date` + currency.
- * Pass `manualRate` to skip fetch (paste). Cached per currency+day.
- */
 export async function getBnaVendedorRate(options: {
   date: Date | string;
   currency?: BnaCurrency;
@@ -132,7 +120,6 @@ export async function getBnaVendedorRate(options: {
     return { ...hit, source: "cache" };
   }
 
-  // EUR has no public historical series here, today via dolarapi, else require paste.
   if (currency === "EUR") {
     if (dateKey === todayArKey()) {
       const rate = await fetchDolarapiVenta("EUR");
@@ -150,7 +137,6 @@ export async function getBnaVendedorRate(options: {
     );
   }
 
-  // USD: prefer historical series; fall back to dolarapi for today if series miss.
   try {
     const series = await fetchBluelyticsOficialSeries();
     const point = findRateOnOrBefore(series, dateKey);
@@ -165,7 +151,6 @@ export async function getBnaVendedorRate(options: {
       return result;
     }
   } catch {
-    // fall through to dolarapi for today
   }
 
   if (dateKey === todayArKey()) {

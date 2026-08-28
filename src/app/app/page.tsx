@@ -49,7 +49,6 @@ export default async function DashboardPage() {
     };
     category = user.category;
 
-    // Persist any newly crossed thresholds / window (idempotent), then load banner.
     await evaluateAndPersistAlerts(user.id);
     const [accumulated, monthly, alerts] = await Promise.all([
       sumRolling12MonthsArs(user.id),

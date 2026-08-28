@@ -23,6 +23,32 @@ Cockpit mínimo para freelancers y contractors argentinos que exportan servicios
 
 Una sola cosa: **runway fiscal visible**. No es un facturador ni reemplazo de ARCA/contador.
 
+## Cómo funciona el cálculo
+
+- Cada cobro USD/EUR se convierte a ARS usando el tipo vendedor BNA del día
+	calendario argentino. La fecha se normaliza antes de persistirla para evitar
+	desplazamientos por zona horaria o DST.
+- USD usa la serie histórica cuando existe y puede caer al valor actual para el
+	día presente. EUR no tiene una serie histórica pública en esta integración:
+	para fechas históricas se permite pegar manualmente la cotización y también se
+	cachean los valores por moneda y día.
+- El runway suma los últimos 12 meses calendario y lo compara con el tope de
+	categoría declarado por el usuario. Sin tope configurado, el porcentaje se
+	considera `null` y no se muestra como un valor engañoso.
+- Las alertas se disparan inclusivamente al 80% y 95%, además de la ventana
+	previa a las recategorizaciones del 1 de enero y el 1 de julio. Los eventos
+	son idempotentes y una restricción única absorbe carreras entre requests.
+- Al cambiar categoría o tope se limpian las alertas de techo para que los
+	umbrales vuelvan a evaluarse contra el nuevo baseline. La prioridad visual es
+	crítico, advertencia y luego recategorización.
+- El endpoint de health registra detalles de DB/driver solo del lado servidor;
+	nunca los devuelve al cliente. El seed de demo deja el runway cerca del 82%
+	para probar el banner del 80%.
+
+La aplicación es una ayuda de seguimiento personal: los topes son snapshots
+declarados por el usuario, no una consulta automática a ARCA, y no reemplaza
+asesoramiento fiscal.
+
 ## Stack
 
 - Next.js (App Router) + TypeScript + Tailwind CSS v4

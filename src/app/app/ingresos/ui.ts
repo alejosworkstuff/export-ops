@@ -1,4 +1,3 @@
-/** Shared ledger form chrome: keep create/edit visually consistent. */
 
 export const fieldClass = "eo-field";
 

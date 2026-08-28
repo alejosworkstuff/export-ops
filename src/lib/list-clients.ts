@@ -32,9 +32,6 @@ export type ClientDetail = {
   }[];
 };
 
-/**
- * Clients for a user with income count + SUM(amountArs), name ASC.
- */
 export async function listClientsWithTotals(
   userId: string,
 ): Promise<ClientListRow[]> {
